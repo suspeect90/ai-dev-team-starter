@@ -2,7 +2,7 @@
 
 Reusable Codex development team: **9 specialist roles, 7 engineering skills, native orchestration instructions and structural CI**. No application stack is imposed.
 
-**Candidate version: 0.2.0.** Real native task-based delegation is exercised during finalization; automatic custom TOML discovery and sandbox application require verification in your target runtime. See [verification evidence](docs/VERIFICATION.md) and [audit](docs/AUDIT.md).
+**Template version: 0.2.0, integrated into main.** Real native task-based delegation is exercised during finalization; automatic custom TOML discovery and sandbox application require verification in your target runtime. See [verification evidence](docs/VERIFICATION.md) and [audit](docs/AUDIT.md).
 
 ## Included
 

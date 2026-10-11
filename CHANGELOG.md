@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 — candidate, 2026-10-11
+## 0.2.0 — integrated into main, 2026-10-11
 
 - Clarify the responsibilities, scope, quality criteria and stack independence of all nine agents.
 - Enable assigned integration/CI/test writes for Tech Lead, DevOps and QA; preserve read-only reviewer defaults.
