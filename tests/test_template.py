@@ -3,11 +3,81 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from validate import validate, AGENTS, SKILLS, REQUIRED_FILES
+
+
+def _tracked_paths(root):
+    """Inspect Git's index only; never open ignored local credentials."""
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(root), "ls-files", "--cached", "-z"],
+            capture_output=True, check=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        raise RuntimeError("Cannot inspect tracked paths; Git and a checkout are required") from None
+    if result.stdout and not result.stdout.endswith(b"\0"):
+        raise RuntimeError("Invalid Git path inventory: missing NUL terminator")
+    return [path.decode("utf-8", errors="surrogateescape")
+            for path in result.stdout.split(b"\0") if path]
+
+
+def _sensitive_paths(paths):
+    """Limited filename policy matching the ignored credential families.
+
+    Names do not establish whether a file contains a secret. .env.example
+    remains allowed and must contain placeholders only.
+    """
+    def sensitive(name):
+        name = name.casefold()
+        return (name == ".env" or (name.startswith(".env.") and name != ".env.example")
+                or name.startswith("id_rsa") or name.endswith((".pem", ".key", ".p12")))
+
+    return [path for path in paths if any(sensitive(name) for name in path.split("/"))]
+
+
+class SensitivePathTests(unittest.TestCase):
+    def test_rejects_tracked_sensitive_names_at_any_depth(self):
+        paths = [".env", "config/.env.production", "credentials/service.key",
+                 "keys/private.pem", "keys/archive.p12", "nested/id_rsa.backup",
+                 "nested/SERVICE.KEY", ".env/config", "keys/id_rsa/backup"]
+        self.assertEqual(_sensitive_paths(paths), paths)
+
+    def test_allows_placeholder_examples_and_ordinary_files(self):
+        paths = [".env.example", "config/.env.example", "README.md",
+                 "docs/env-guide.md", "public-key.pub", "envelope.txt"]
+        self.assertEqual(_sensitive_paths(paths), [])
+
+    def test_nul_inventory_preserves_newlines_and_nested_paths(self):
+        result = subprocess.CompletedProcess([], 0, stdout=b"docs/a\nb.md\0config/.env\0")
+        with mock.patch.object(subprocess, "run", return_value=result):
+            paths = _tracked_paths(ROOT)
+        self.assertEqual(paths, ["docs/a\nb.md", "config/.env"])
+        self.assertEqual(_sensitive_paths(paths), ["config/.env"])
+
+    def test_ignored_local_files_are_not_examined(self):
+        result = subprocess.CompletedProcess([], 0, stdout=b"README.md\0.env.example\0")
+        with mock.patch.object(subprocess, "run", return_value=result), \
+                mock.patch.object(Path, "exists", side_effect=AssertionError("Local file probe")):
+            self.assertEqual(_sensitive_paths(_tracked_paths(ROOT)), [])
+
+    def test_inventory_failures_do_not_pass(self):
+        for failure in (FileNotFoundError("Git unavailable"),
+                        subprocess.CalledProcessError(128, ["git"])):
+            with self.subTest(failure=type(failure).__name__):
+                with mock.patch.object(subprocess, "run", side_effect=failure):
+                    with self.assertRaisesRegex(RuntimeError, "Cannot inspect tracked paths"):
+                        _tracked_paths(ROOT)
+
+    def test_truncated_inventory_is_rejected(self):
+        result = subprocess.CompletedProcess([], 0, stdout=b"credentials/service.key")
+        with mock.patch.object(subprocess, "run", return_value=result):
+            with self.assertRaisesRegex(RuntimeError, "missing NUL terminator"):
+                _tracked_paths(ROOT)
 
 
 def _fixture_source(root, path):
@@ -78,9 +148,8 @@ class TemplateTests(unittest.TestCase):
         self.assertEqual(len(AGENTS), 9)
         self.assertEqual(len(SKILLS), 7)
 
-    def test_no_secret_files(self):
-        self.assertFalse((ROOT / ".env").exists())
-        self.assertFalse((ROOT / "id_rsa").exists())
+    def test_no_sensitive_tracked_paths(self):
+        self.assertEqual(_sensitive_paths(_tracked_paths(ROOT)), [])
 
     def test_agents_array_regression(self):
         self.write(".codex/config.toml", "agents = []\n")

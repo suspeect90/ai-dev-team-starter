@@ -18,12 +18,14 @@ Vous pouvez copier ce message dans la nouvelle discussion :
 
 > Vérifie le démarrage de notre équipe dans ce projet. Indique le répertoire de travail, la racine Git, la branche et les changements locaux. Lis AGENTS.md et docs/PROJECT_BRIEF.md. Vérifie les rôles et skills réellement disponibles, en distinguant le catalogue du client des fichiers lus explicitement. Exécute le validateur et les tests du modèle. Fais ensuite le test natif isolé décrit dans docs/SMOKE_TEST.md si les outils le permettent, puis nettoie uniquement ses artefacts temporaires. Signale ce qui a réussi et ce qui reste non vérifié.
 
-Les commandes du modèle, à lancer depuis sa racine avec Python 3.11 ou ultérieur, sont :
+Les commandes du modèle, à lancer depuis sa racine avec Python 3.11 ou ultérieur et Git disponibles, sont :
 
 ```text
 python scripts/validate.py
 python -m unittest discover -s tests -v
 ```
+
+Le contrôle des noms de fichiers sensibles examine les chemins suivis dans l'index Git. Il ne lit pas les secrets locaux ignorés et ne remplace pas une recherche de secrets dans le contenu ou l'historique.
 
 Le dépôt contient neuf rôles dans `.codex/agents/` et sept skills dans `.agents/skills/`. Leur présence et les tests structurels ne prouvent pas leur chargement natif. Le [test isolé](SMOKE_TEST.md) vérifie une véritable chaîne de délégation ; il ne certifie pas tous les rôles ni une application future. Ce contrôle est utile au premier démarrage et après un changement important du client ou des contrats.
 

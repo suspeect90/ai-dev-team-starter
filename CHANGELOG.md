@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Check sensitive filenames in Git's index at every depth, allowing ignored local credentials and placeholder-only `.env.example` files; fail when the index cannot be inspected.
+- Add six focused regression tests for tracked paths, NUL-separated inventories and Git errors; clarify the check's limits and Git prerequisite.
+
 ## 0.2.0 — integrated into main, 2026-10-11
 
 - Clarify the responsibilities, scope, quality criteria and stack independence of all nine agents.

@@ -21,6 +21,8 @@ Reusable Codex development team: **9 specialist roles, 7 engineering skills, nat
 2. Clone your new repository and open its root in Codex. Inspect/trust its project configuration through the client's controls.
 3. Fill `docs/PROJECT_BRIEF.md` and run:
 
+Use Python 3.11+ and Git from the checkout root. The tracked-file check inspects Git's index; it does not read ignored local credentials.
+
 ```text
 python scripts/validate.py
 python -m unittest discover -s tests -v
