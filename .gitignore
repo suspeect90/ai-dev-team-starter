@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+id_rsa*
+__pycache__/
+.pytest_cache/
+node_modules/
+vendor/
+.next/
+dist/
+build/
+.coverage
+.DS_Store
+.vscode/settings.json

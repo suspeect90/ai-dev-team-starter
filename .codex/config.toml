@@ -1,0 +1,4 @@
+# Codex multi-agent configuration for this repository.
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 4
