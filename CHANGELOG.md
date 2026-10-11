@@ -1,6 +1,15 @@
 # Changelog
 
-## 0.2.0 — candidate, 2026-10-11
+## 0.2.1 — 2026-10-11
+
+- Check sensitive filenames in Git's index at every depth, allowing ignored local credentials and placeholder-only `.env.example` files; fail when the index cannot be inspected.
+- Add six focused regression tests for tracked paths, NUL-separated inventories and Git errors; clarify the check's limits and Git prerequisite.
+- Clarify project-root onboarding and add practical messages for startup, interruption recovery, project changes and targeted skill updates.
+- Consolidate follow-up verification evidence while keeping historical results and runtime limitations explicit.
+
+The pull request and exact-revision CI determine integration status; no release tag or deployment is created automatically.
+
+## 0.2.0 — integrated into main, 2026-10-11
 
 - Clarify the responsibilities, scope, quality criteria and stack independence of all nine agents.
 - Enable assigned integration/CI/test writes for Tech Lead, DevOps and QA; preserve read-only reviewer defaults.

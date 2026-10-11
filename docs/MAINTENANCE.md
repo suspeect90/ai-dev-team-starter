@@ -26,4 +26,4 @@ Periodically check official Codex formats and installed runtime capabilities. Do
 
 Actions are pinned to verified commit SHAs. Review upstream changes and replace pins deliberately; do not assume a moving tag is immutable. The template CI checks configuration on Python 3.11/3.12 and Linux/Windows. Derived projects add their own stack-specific tests, lint/type/build checks without removing infrastructure validation.
 
-Release tags may be created after review/merge according to the human maintainer's release policy. The finalization PR proposes 0.2.0; no release tag or deployment is created automatically.
+Release tags may be created after review/merge according to the human maintainer's release policy. VERSION and CHANGELOG describe the checked-out revision; inspect its PR and exact-revision CI to determine integration status. No release tag or deployment is created automatically.

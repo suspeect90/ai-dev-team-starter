@@ -2,7 +2,7 @@
 
 Reusable Codex development team: **9 specialist roles, 7 engineering skills, native orchestration instructions and structural CI**. No application stack is imposed.
 
-**Candidate version: 0.2.0.** Real native task-based delegation is exercised during finalization; automatic custom TOML discovery and sandbox application require verification in your target runtime. See [verification evidence](docs/VERIFICATION.md) and [audit](docs/AUDIT.md).
+**Template version: 0.2.1.** Real native task-based delegation is exercised during finalization; automatic custom TOML discovery and sandbox application require verification in your target runtime. See [verification evidence](docs/VERIFICATION.md), [version history](CHANGELOG.md) and [audit](docs/AUDIT.md).
 
 ## Included
 
@@ -20,6 +20,8 @@ Reusable Codex development team: **9 specialist roles, 7 engineering skills, nat
 1. Choose **Use this template → Create a new repository** on GitHub. The source was confirmed `is_template: true` on 2026-10-11.
 2. Clone your new repository and open its root in Codex. Inspect/trust its project configuration through the client's controls.
 3. Fill `docs/PROJECT_BRIEF.md` and run:
+
+Use Python 3.11+ and Git from the checkout root. The tracked-file check inspects Git's index; it does not read ignored local credentials.
 
 ```text
 python scripts/validate.py

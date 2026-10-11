@@ -1,6 +1,6 @@
 # Verification evidence — 2026-10-11
 
-This record separates structural checks, real agent execution and unverified native discovery. It does not certify all nine roles or future applications.
+This record separates structural checks, real agent execution and unverified native discovery. It does not certify all nine roles or future applications. The initial finalization record below is historical; the follow-up section distinguishes later observations and remaining limitations.
 
 ## Environment and baseline
 
@@ -54,3 +54,24 @@ The temporary test files are removed after verification; their sanitized result 
 ## Reproduce in a target project
 
 Follow START_HERE.md and SMOKE_TEST.md in a trusted target checkout. Confirm the actual client role/skill list, runtime cap and sandbox policy, then run the isolated native scenario before treating automatic custom-role loading as verified.
+
+## Follow-up verification — phases 2 to 8
+
+The user supplied a report from a separate target-project session: nine named roles were exposed, seven skills appeared in its catalog, and architect/backend/security/QA ran using named-role selection. That report records 19 QA tests and 891 subcases on Python 3.12.14 and 3.13.5. These executions were not repeated by the parent in this chat. Automatic selection and read-only sandbox enforcement in this chat remain unverified; the historical CLI access failures are not evidence of a current template defect.
+
+During phase 3, all seven skills were reviewed; the validator and 37 tests passed on the unchanged source. Three native tasks explicitly loaded repository skills for in-memory Python debugging, an additive SQLite schema change with old/new consumers and data rollback, and hypothetical release decisions. The exercises do not establish a production migration or release.
+
+Phase 5 ran a new isolated native chain in this chat: architect completed a contract, backend implemented its assigned file, then independent security and QA ran concurrently on the stable implementation. The parent reran QA and verified cleanup. Role instructions were read explicitly, not selected automatically by TOML name.
+
+- Backend: 95 checks passed.
+- Security: 1,115,791 checks, zero failures, including the Unicode character space.
+- QA and parent reruns: 13 tests and 2,884 subcases on each of Python 3.12.14 and 3.13.5; zero failures, errors or skips.
+- Template validator and 37 regression tests passed. Three verified temporary artifacts and their directory were removed.
+
+Phase 8 corrected a test that rejected ignored local credential files while missing sensitive tracked names in subfolders. Six regressions were added. Independent QA ran 43 tests on Windows/Python 3.13.5, with zero failures, errors or skips (18.866s). Five real temporary Git-index checks passed; both fixtures were removed. Independent security review found no exploitable issue in the inspected infrastructure and no remaining confirmed defect in the correction.
+
+The [phase 8 PR CI](https://github.com/suspeect90/ai-dev-team-starter/actions/runs/38153761190) completed successfully on `c50a4f9f07ac1043e23ea69d86a884c5b2f7b626`: 43 tests and successful validation in each of Linux/Windows and Python 3.11/3.12. Job logs were read. A targeted scan of its 36 tracked files found no examined private-key, GitHub-token, AWS-key or OpenAI-key pattern, or sensitive filename. History, ignored files and personal settings were outside that scan; this is not exhaustive secret scanning.
+
+Repository metadata confirmed the private template enabled and main at merged version 0.2.0. Follow-up changes are published in [PR #2](https://github.com/suspeect90/ai-dev-team-starter/pull/2). Check that PR and its latest CI for the version 0.2.1 candidate; a prior run is not proof of a later revision's result.
+
+Remaining limits: effective read-only isolation and automatic role selection in this chat, full behavioral validation of all nine roles, saturation and real interruption/conflict recovery, creation of a derived repository, and application-specific correctness/security. Main was reported unprotected; no branch permissions or protection were changed. No business application, production deployment or release tag was created.
