@@ -1,4 +1,7 @@
-# Codex multi-agent configuration for this repository.
+# Project-scoped defaults; trusted projects load this layer.
+# Four open child threads, excluding the primary agent, if the runtime permits.
+# The current chat's runtime may enforce a lower limit.
 [agents]
 enabled = true
 max_concurrent_threads_per_session = 4
+# Models/reasoning inherit the user's available parent settings.
