@@ -1,41 +1,47 @@
 # AI Dev Team Starter
 
-Reusable **GitHub repository template** for working with Codex subagents, local skills and practical software engineering safeguards.
+Reusable Codex development team: **9 specialist roles, 7 engineering skills, native orchestration instructions and structural CI**. No application stack is imposed.
 
-**Status: v0.1.0.** Agent/skill configuration and repository structure can be statically validated. A live Codex delegation test must still be run before treating the team as operational.
+**Candidate version: 0.2.0.** Real native task-based delegation is exercised during finalization; automatic custom TOML discovery and sandbox application require verification in your target runtime. See [verification evidence](docs/VERIFICATION.md) and [audit](docs/AUDIT.md).
 
-## What is inside
+## Included
 
-- `AGENTS.md`: orchestration, security rules, testing standards and delivery contract.
-- `.codex/config.toml`: Codex multi-agent settings (up to 4 spawned threads).
-- `.codex/agents/`: 9 role definitions (including an optional dedicated tech lead).
-- `.agents/skills/`: 7 process skills with portable `SKILL.md` definitions.
-- `scripts/validate.py` + `tests/`: local structural checks.
-- `.github/workflows/validate.yml`: structural validation in GitHub Actions.
-- `templates/stacks/`: optional Laravel/Next.js/Postgres, Next.js fullstack and mobile guidance.
-- `docs/`: brief, operating guide, security and template maintenance.
+- `AGENTS.md`: primary Tech Lead, ownership, security and verification contract.
+- `.codex/config.toml`: four open child threads excluding the parent where supported; runtime limits may be lower.
+- `.codex/agents/`: tech_lead, architect, backend, frontend, database, security, qa, devops and designer.
+- `.agents/skills/`: planning, code-review, systematic-debugging, test-strategy, security-audit, database-change and release-readiness.
+- `scripts/validate.py`, `tests/`: Python 3.11+ standard-library structural checks and regression tests.
+- `.github/workflows/validate.yml`: Linux/Windows, Python 3.11/3.12 checks on PRs and main.
+- `docs/`: onboarding, collaboration, real smoke test, evidence, security and maintenance.
+- `templates/stacks/`: optional examples; any stack can be documented in the project brief.
 
-## Start a new project
+## Start
 
-1. On this source repository, choose **Settings → General → Template repository** (requires appropriate GitHub permissions).
-2. Use **Use this template → Create a new repository**. Prefer Private for client or business applications.
-3. Clone the newly created repository and open its root in a compatible Codex environment.
-4. Fill `docs/PROJECT_BRIEF.md`, select a stack profile, and keep `AGENTS.md` relevant.
-5. Run `python scripts/validate.py` and `python -m unittest discover -s tests -v` (Python 3.11+).
-6. Paste the bootstrap prompt from `docs/START_HERE.md` into Codex.
-7. Run the read-only multi-agent smoke test in `docs/START_HERE.md` before production use.
+1. Choose **Use this template → Create a new repository** on GitHub. The source was confirmed `is_template: true` on 2026-10-11.
+2. Clone your new repository and open its root in Codex. Inspect/trust its project configuration through the client's controls.
+3. Fill `docs/PROJECT_BRIEF.md` and run:
 
-## Why this is a template
+```text
+python scripts/validate.py
+python -m unittest discover -s tests -v
+```
 
-Each new repository receives a snapshot of the files, **not automatic updates** from this repository. Follow `docs/MAINTENANCE.md` for versioned updates. A repository template does not install plugins or grant access to GitHub, hosting providers, secrets or local developer tools.
+4. Follow [the practical guide](docs/START_HERE.md), then [the isolated smoke test](docs/SMOKE_TEST.md) in the target environment.
 
-## Safety
+> Voici mon idée d'application. Analyse le besoin, propose l'architecture, prépare le plan de développement et mobilise les spécialistes nécessaires.
 
-Do not auto-deploy or change real financial data. All sensitive operations require human review and authorization. Only claim the tests and runtime checks that have actually run.
+The primary agent coordinates by default. Native delegation and named custom-role selection depend on the runtime; copying files neither grants permissions nor installs plugins/models/tools.
+
+## Maintenance and limits
+
+Templates create snapshots, not automatic updates. Follow [maintenance](docs/MAINTENANCE.md) for versioned changes without overwriting project customizations. Template CI validates infrastructure; every derived application adds checks for its actual stack.
+
+No production deployment or real data deletion happens automatically. A successful structural test is not proof of role discovery, enforced sandbox boundaries or application security.
 
 ## Official references
 
-- [Codex subagents](https://developers.openai.com/codex/subagents)
-- [Codex skills](https://developers.openai.com/codex/skills)
-- [Codex config reference](https://developers.openai.com/codex/config-reference)
+- [Codex subagents and custom agents](https://learn.chatgpt.com/docs/agent-configuration/subagents)
+- [Skills authoring and discovery](https://learn.chatgpt.com/docs/build-skills)
+- [Codex configuration reference](https://learn.chatgpt.com/docs/config-file/config-reference)
 - [GitHub template repositories](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository)
+- [GitHub Actions secure use](https://docs.github.com/en/actions/reference/security/secure-use)
